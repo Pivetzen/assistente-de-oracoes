@@ -3,48 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso Rápido - Terço de Aparecida</title>
+    <title>Programação Espiritual - Acesso Rápido</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background-color: #f4f4f9; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
-        .buttons { margin-top: 15px; }
-        button { 
-            padding: 10px 20px; margin: 5px; cursor: pointer; border: none; 
-            border-radius: 5px; font-weight: bold; transition: 0.3s;
+        /* Estilo Geral - Paleta Católica (Azul, Dourado e Branco) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #2c3e50;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .btn-hoje { background-color: #28a745; color: white; }
-        .btn-ontem { background-color: #6c757d; color: white; }
-        button:hover { opacity: 0.8; }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #d4af37; /* Dourado */
+            padding-bottom: 10px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        header h1 {
+            color: #003366; /* Azul Escuro */
+            margin: 0;
+            font-variant: small-caps;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Estilo dos Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid #003366;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #003366;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Botões */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-hoje {
+            background-color: #003366; /* Azul */
+            color: white;
+        }
+
+        .btn-ontem {
+            background-color: #d4af37; /* Dourado */
+            color: white;
+        }
+
+        button:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h3>Terço de Aparecida - Pe. Antônio Maria</h3>
-    <div class="buttons">
-        <button class="btn-hoje" onclick="assistir('hoje')">HOJE</button>
-        <button class="btn-ontem" onclick="assistir('ontem')">ONTEM</button>
+<header>
+    <h1>Canais de Oração</h1>
+    <p>Assista às celebrações do dia</p>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h3>Terço de Aparecida - Pe. Antônio Maria</h3>
+        <div class="buttons">
+            <button class="btn-hoje" onclick="buscar('Terço de Aparecida Pe. Antônio Maria', 'hoje')">Hoje</button>
+            <button class="btn-ontem" onclick="buscar('Terço de Aparecida Pe. Antônio Maria', 'ontem')">Ontem</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Missa de Aparecida - TV Aparecida</h3>
+        <div class="buttons">
+            <button class="btn-hoje" onclick="buscar('Missa de Aparecida TV Aparecida', 'hoje')">Hoje</button>
+            <button class="btn-ontem" onclick="buscar('Missa de Aparecida TV Aparecida', 'ontem')">Ontem</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Santa Missa com Pe. Marcelo Rossi</h3>
+        <div class="buttons">
+            <button class="btn-hoje" onclick="buscar('Missa Padre Marcelo Rossi', 'hoje')">Hoje</button>
+            <button class="btn-ontem" onclick="buscar('Missa Padre Marcelo Rossi', 'ontem')">Ontem</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Missa do Pai Eterno - TV Pai Eterno</h3>
+        <div class="buttons">
+            <button class="btn-hoje" onclick="buscar('Missa TV Pai Eterno', 'hoje')">Hoje</button>
+            <button class="btn-ontem" onclick="buscar('Missa TV Pai Eterno', 'ontem')">Ontem</button>
+        </div>
     </div>
 </div>
 
+<footer>
+    <p>Que a paz de Cristo esteja com você.</p>
+</footer>
+
 <script>
-    function assistir(periodo) {
+    function buscar(titulo, periodo) {
         const data = new Date();
         
         if (periodo === 'ontem') {
             data.setDate(data.getDate() - 1);
         }
 
-        // Formata a data para o padrão "DD/MM/YYYY"
         const dia = String(data.getDate()).padStart(2, '0');
         const mes = String(data.getMonth() + 1).padStart(2, '0');
         const ano = data.getFullYear();
         const dataFormatada = `${dia}/${mes}/${ano}`;
 
-        // Termo de busca específico
-        const termoBusca = `Terço de Aparecida Pe. Antônio Maria ${dataFormatada}`;
+        // Monta o termo de pesquisa
+        const termoBusca = `${titulo} ${dataFormatada}`;
         
-        // Codifica para URL e redireciona para a busca do YouTube
+        // Redireciona para o YouTube
         const urlYoutube = `https://www.youtube.com/results?search_query=${encodeURIComponent(termoBusca)}`;
         
         window.open(urlYoutube, '_blank');
