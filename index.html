@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programação Espiritual - Acesso Rápido</title>
     <style>
-        /* Estilo Geral - Paleta Católica (Azul, Dourado e Branco) */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f2f5;
@@ -20,14 +19,14 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid #d4af37; /* Dourado */
+            border-bottom: 2px solid #d4af37;
             padding-bottom: 10px;
             width: 100%;
             max-width: 600px;
         }
 
         header h1 {
-            color: #003366; /* Azul Escuro */
+            color: #003366;
             margin: 0;
             font-variant: small-caps;
         }
@@ -40,14 +39,27 @@
             gap: 20px;
         }
 
-        /* Estilo dos Cards */
         .card {
             background: white;
             border-radius: 12px;
-            padding: 20px;
+            overflow: hidden; /* Para a imagem respeitar a borda arredondada */
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border-left: 5px solid #003366;
             transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilo da Imagem */
+        .card-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-content {
+            padding: 20px;
         }
 
         .card:hover {
@@ -62,7 +74,6 @@
             padding-bottom: 10px;
         }
 
-        /* Botões */
         .buttons {
             display: flex;
             justify-content: center;
@@ -83,15 +94,9 @@
             font-size: 0.9rem;
         }
 
-        .btn-hoje {
-            background-color: #003366; /* Azul */
-            color: white;
-        }
-
-        .btn-ontem {
-            background-color: #d4af37; /* Dourado */
-            color: white;
-        }
+        .btn-hoje { background-color: #003366; color: white; }
+        .btn-ontem { background-color: #d4af37; color: white; }
+        .btn-unico { background-color: #2c3e50; color: white; }
 
         button:hover {
             filter: brightness(1.2);
@@ -114,36 +119,39 @@
 </header>
 
 <div class="container">
+    
     <div class="card">
-        <h3>Ofício da Imaculada Conceição (Cantado)</h3>
-        <div class="buttons">
-            <button class="btn-hoje" onclick="window.location.href='https://www.youtube.com/watch?v=zFlmusvfJIY&list=RDzFlmusvfJIY&start_radio=1&pp=ygUnb2ZpY2lvIGRhIGltYWN1bGFkYSBjb25jZWnDp8OjbyBjYW50YWRvoAcB'">Acessar</button>
+        <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?q=80&w=500" class="card-img" alt="Ofício">
+        <div class="card-content">
+            <h3>Ofício da Imaculada Conceição</h3>
+            <div class="buttons">
+                <button class="btn-unico" onclick="window.open('https://www.youtube.com/watch?v=zFlmusvfJIY&list=RDzFlmusvfJIY', '_blank')">Acessar Agora</button>
+            </div>
         </div>
     </div>
 
     <div class="card">
-        <h3>Terço de Aparecida - Pe. Antônio Maria</h3>
-        <div class="buttons">
-            <button class="btn-hoje" onclick="buscar('Terço de Aparecida Pe. Antônio Maria', 'hoje')">Hoje</button>
-            <button class="btn-ontem" onclick="buscar('Terço de Aparecida Pe. Antônio Maria', 'ontem')">Ontem</button>
+        <img src="https://images.unsplash.com/photo-1548625361-195fe0182a70?q=80&w=500" class="card-img" alt="Terço">
+        <div class="card-content">
+            <h3>Terço - Pe. Antônio Maria</h3>
+            <div class="buttons">
+                <button class="btn-hoje" onclick="buscar('Terço de Aparecida Pe. Antônio Maria', 'hoje')">Hoje</button>
+                <button class="btn-ontem" onclick="buscar('Terço de Aparecida Pe. Antônio Maria', 'ontem')">Ontem</button>
+            </div>
         </div>
     </div>
 
     <div class="card">
-        <h3>Missa de Aparecida - TV Aparecida</h3>
-        <div class="buttons">
-            <button class="btn-hoje" onclick="buscar('Missa de Aparecida TV Aparecida', 'hoje')">Hoje</button>
-            <button class="btn-ontem" onclick="buscar('Missa de Aparecida TV Aparecida', 'ontem')">Ontem</button>
+        <img src="https://images.unsplash.com/photo-1515594543986-32c19b048d52?q=80&w=500" class="card-img" alt="Missa">
+        <div class="card-content">
+            <h3>Missa de Aparecida</h3>
+            <div class="buttons">
+                <button class="btn-hoje" onclick="buscar('Missa de Aparecida TV Aparecida', 'hoje')">Hoje</button>
+                <button class="btn-ontem" onclick="buscar('Missa de Aparecida TV Aparecida', 'ontem')">Ontem</button>
+            </div>
         </div>
     </div>
 
-    <div class="card">
-        <h3>Santa Missa - alternativas</h3>
-        <div class="buttons">
-            <button class="btn-hoje" onclick="buscar('Santa Missa', 'hoje')">Hoje</button>
-            <button class="btn-ontem" onclick="buscar('Santa Missa', 'ontem')">Ontem</button>
-        </div>
-    </div>
 </div>
 
 <footer>
@@ -153,22 +161,13 @@
 <script>
     function buscar(titulo, periodo) {
         const data = new Date();
-        
-        if (periodo === 'ontem') {
-            data.setDate(data.getDate() - 1);
-        }
-
+        if (periodo === 'ontem') data.setDate(data.getDate() - 1);
         const dia = String(data.getDate()).padStart(2, '0');
         const mes = String(data.getMonth() + 1).padStart(2, '0');
         const ano = data.getFullYear();
         const dataFormatada = `${dia}/${mes}/${ano}`;
-
-        // Monta o termo de pesquisa
         const termoBusca = `${titulo} ${dataFormatada}`;
-        
-        // Redireciona para o YouTube
         const urlYoutube = `https://www.youtube.com/results?search_query=${encodeURIComponent(termoBusca)}`;
-        
         window.open(urlYoutube, '_blank');
     }
 </script>
